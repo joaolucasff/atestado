@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validação de Atendimento – CS Saúde</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #0d9488;
+      --teal-dark:   #0f766e;
+      --teal-light:  #ccfbf1;
+      --teal-mid:    #5eead4;
+      --bg:          #f0faf8;
+      --white:       #ffffff;
+      --text:        #1a2e2b;
+      --muted:       #6b7f7c;
+      --border:      #b2d8d4;
+      --green-bg:    #dcfce7;
+      --green-text:  #166534;
+      --mono:        'IBM Plex Mono', monospace;
+      --sans:        'IBM Plex Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--teal);
+      padding: 0 28px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(13,148,136,.25);
+    }
+
+    .logo-box {
+      width: 34px; height: 34px;
+      background: white;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px;
+      color: var(--teal);
+      letter-spacing: -.5px;
+      flex-shrink: 0;
+    }
+
+    header .brand {
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(13,148,136,.08);
+      animation: rise .45s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      background: var(--teal-light);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .check-circle {
+      width: 42px; height: 42px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .check-circle svg { width: 22px; height: 22px; }
+
+    .card-header-text h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--teal-dark);
+    }
+
+    .card-header-text p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge {
+      margin-left: auto;
+      background: var(--green-bg);
+      color: var(--green-text);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 99px;
+      letter-spacing: .3px;
+      white-space: nowrap;
+    }
+
+    /* ── ROWS ── */
+    .rows {
+      padding: 8px 0;
+    }
+
+    .row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 13px 28px;
+      border-bottom: 1px solid #f0faf8;
+      animation: fade .4s ease both;
+    }
+
+    .row:last-child { border-bottom: none; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateX(-6px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .row:nth-child(1)  { animation-delay: .05s; }
+    .row:nth-child(2)  { animation-delay: .10s; }
+    .row:nth-child(3)  { animation-delay: .15s; }
+    .row:nth-child(4)  { animation-delay: .20s; }
+    .row:nth-child(5)  { animation-delay: .25s; }
+    .row:nth-child(6)  { animation-delay: .30s; }
+    .row:nth-child(7)  { animation-delay: .35s; }
+    .row:nth-child(8)  { animation-delay: .40s; }
+    .row:nth-child(9)  { animation-delay: .45s; }
+
+    .row-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      min-width: 170px;
+      flex-shrink: 0;
+    }
+
+    .row-value {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 400;
+      word-break: break-all;
+    }
+
+    .row-value.highlight {
+      color: var(--teal-dark);
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    .card-footer {
+      background: #f8fdfc;
+      border-top: 1px solid var(--border);
+      padding: 14px 28px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: .3px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 480px) {
+      .row { flex-direction: column; gap: 3px; padding: 12px 20px; }
+      .row-label { min-width: unset; }
+      .card-header { padding: 16px 20px; }
+      .card-header-text h1 { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-box">Cs</div>
+    <span class="brand">Saúde</span>
+  </header>
+
+  <main>
+    <div class="card">
+
+      <div class="card-header">
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="card-header-text">
+          <h1>Documento de Atendimento Validado</h1>
+          <p>Documento autêntico — emitido pelo sistema CS Saúde</p>
+        </div>
+        <span class="badge">✓ Atendido</span>
+      </div>
+
+      <div class="rows">
+
+        <div class="row">
+          <span class="row-label">Atendimento nº</span>
+          <span class="row-value highlight">93685400</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Data do atendimento</span>
+          <span class="row-value">25/05/2026 – 10:12 BRT</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Situação</span>
+          <span class="row-value highlight">Atendido</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Unidade</span>
+          <span class="row-value">( 257581 ) CS COQUEIROS</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Profissional</span>
+          <span class="row-value">( 333803336 ) FLÁVIA NUNES MARUYAMA</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">CRM</span>
+          <span class="row-value">33097</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Paciente</span>
+          <span class="row-value">( 2007380 ) JOÃO LUCAS FURTADO FIEL</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">CNS do Paciente</span>
+          <span class="row-value">706 8097 9234 8723</span>
+        </div>
+
+        <div class="row">
+          <span class="row-label">CPF do Paciente</span>
+          <span class="row-value">065.533.562-54</span>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+        Documento gerado automaticamente · Não requer assinatura física
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    Desenvolvido por CS Sistemas
+  </footer>
+
+</body>
+</html>
